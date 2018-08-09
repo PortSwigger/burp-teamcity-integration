@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<teamcity-plugin xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:schemas-jetbrains-com:teamcity-plugin-v1-xml">
+  <info>
+    <name>burp-teamcity-integration</name>
+    <display-name>Burp scan</display-name>
+    <version>1.0beta</version>
+    <description>Fail the build if Burp finds issues in a website</description>
+    <download-url>TODO</download-url>
+    <email>support@portswigger.net</email>
+    <vendor>
+      <name>PortSwigger</name>
+      <url>https://portswigger.net</url>
+      <logo>https://avatars3.githubusercontent.com/u/13749115</logo>
+    </vendor>
+  </info>
+  <deployment use-separate-classloader="true" />
+</teamcity-plugin>
