@@ -3,7 +3,7 @@
   <info>
     <name>burp-teamcity-integration</name>
     <display-name>Burp scan</display-name>
-    <version>1.0.6beta</version>
+    <version>1.0.7beta</version>
     <description>Fail the build if Burp finds issues in a website</description>
     <download-url>TODO</download-url>
     <email>support@portswigger.net</email>

@@ -4,7 +4,7 @@
   <parent>
     <artifactId>burp-teamcity-integration</artifactId>
     <groupId>net.portswigger.burp.api</groupId>
-    <version>1.0.6beta</version>
+    <version>1.0.7beta</version>
   </parent>
   <artifactId>build</artifactId>
   <packaging>pom</packaging>
@@ -18,17 +18,17 @@
       <dependency>
            <groupId>net.portswigger.burp.api</groupId>
            <artifactId>burp-teamcity-integration-agent</artifactId>
-           <version>1.0.6beta</version>
+           <version>1.0.7beta</version>
       </dependency>
       <dependency>
            <groupId>net.portswigger.burp.api</groupId>
            <artifactId>burp-teamcity-integration-common</artifactId>
-           <version>1.0.6beta</version>
+           <version>1.0.7beta</version>
       </dependency>
       <dependency>
            <groupId>net.portswigger.burp.api</groupId>
            <artifactId>burp-teamcity-integration-server</artifactId>
-           <version>1.0.6beta</version>
+           <version>1.0.7beta</version>
       </dependency>
   </dependencies>
   <build>
