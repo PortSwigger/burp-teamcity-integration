@@ -16,7 +16,7 @@
     <parent>
     <artifactId>burp-teamcity-integration</artifactId>
     <groupId>net.portswigger.burp.api</groupId>
-    <version>1.0beta</version>
+    <version>1.0.6beta</version>
   </parent>
   <artifactId>burp-teamcity-integration-server</artifactId>
   <packaging>jar</packaging>
@@ -25,7 +25,7 @@
     <dependency>
       <groupId>net.portswigger.burp.api</groupId>
       <artifactId>burp-teamcity-integration-common</artifactId>
-      <version>1.0beta</version>
+      <version>1.0.6beta</version>
       <scope>compile</scope>
     </dependency>
 

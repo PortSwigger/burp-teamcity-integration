@@ -41,6 +41,15 @@ public class BurpScanConstantsBean
         return BurpScanConstants.BURP_SCAN_PROPERTY_CONFIDENCE_THRESHOLD_EMPTY;
     }
 
+    public String getTimeout()
+    {
+        return BurpScanConstants.BURP_SCAN_PROPERTY_TIMEOUT;
+    }
+    public String getTimeoutEmpty()
+    {
+        return BurpScanConstants.BURP_SCAN_PROPERTY_TIMEOUT_EMPTY;
+    }
+
     public String getOutputJsonIssues()
     {
         return BurpScanConstants.BURP_SCAN_PROPERTY_OUTPUT_JSON_ISSUES;
@@ -58,5 +67,14 @@ public class BurpScanConstantsBean
     public Confidence[] getConfidences()
     {
         return Confidence.values();
+    }
+
+    public String getSelfSignedCertX509()
+    {
+        return BurpScanConstants.BURP_SCAN_PROPERTY_SELF_SIGNED_CERT_X509;
+    }
+    public String getSelfSignedCertX509Empty()
+    {
+        return BurpScanConstants.BURP_SCAN_PROPERTY_SELF_SIGNED_CERT_X509_EMPTY;
     }
 }

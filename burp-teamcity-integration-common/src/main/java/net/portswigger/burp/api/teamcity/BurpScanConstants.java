@@ -20,6 +20,12 @@ class BurpScanConstants
     static final String BURP_SCAN_PROPERTY_CONFIDENCE_THRESHOLD = "burpScan.confidenceThreshold";
     static final String BURP_SCAN_PROPERTY_CONFIDENCE_THRESHOLD_EMPTY = BurpCiDriver.DEFAULT_MIN_CONFIDENCE;
 
+    static final String BURP_SCAN_PROPERTY_TIMEOUT = "burpScan.timeout";
+    static final String BURP_SCAN_PROPERTY_TIMEOUT_EMPTY = BurpCiDriver.DEFAULT_TIMEOUT;
+
     static final String BURP_SCAN_PROPERTY_OUTPUT_JSON_ISSUES = "burpScan.outputJsonIssues";
     static final String BURP_SCAN_PROPERTY_OUTPUT_JSON_ISSUES_EMPTY = "false";
+
+    static final String BURP_SCAN_PROPERTY_SELF_SIGNED_CERT_X509 = "burpScan.selfSignedCertX509";
+    static final String BURP_SCAN_PROPERTY_SELF_SIGNED_CERT_X509_EMPTY = "";
 }

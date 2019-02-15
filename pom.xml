@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>net.portswigger.burp.api</groupId>
   <artifactId>burp-teamcity-integration</artifactId>
-  <version>1.0beta</version>
+  <version>1.0.6beta</version>
   <packaging>pom</packaging>
   <properties>
       <teamcity-version>10.0</teamcity-version>

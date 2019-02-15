@@ -47,8 +47,27 @@
   </tr>
 
   <tr>
+    <th><label>Length of time in seconds to wait before giving up:</label></th>
+    <td>
+        <props:textProperty name="${constants.timeout}" className="shortField"/>
+        <span class="smallNote">Optional. Default value: ${constants.timeoutEmpty}</span>
+    </td>
+  </tr>
+
+  <tr>
     <th><label>Output issues in JSON form (verbose):</label></th>
     <td><props:checkboxProperty name="${constants.outputJsonIssues}"/></td>
+  </tr>
+
+  <tr>
+    <th><label>Self-signed TLS certificate (public part):</label></th>
+    <td>
+      <props:multilineProperty name="${constants.selfSignedCertX509}"
+                               className="longField"
+                               linkTitle="Optional, in X509 base64-encoded format (often a .pem file)"
+                               cols="55" rows="5"
+                               expanded="false" />
+    </td>
   </tr>
 </l:settingsGroup>
 

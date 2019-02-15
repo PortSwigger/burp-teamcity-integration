@@ -6,16 +6,20 @@ import jetbrains.buildServer.messages.BuildMessage1;
 import jetbrains.buildServer.util.EventDispatcher;
 import net.portswigger.burp.api.driver.BurpCiDriver;
 import net.portswigger.burp.api.driver.BurpCiSourceConsumer;
+import net.portswigger.burp.api.driver.ScanResult;
 import org.apache.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 import java.util.function.Consumer;
 
+import static org.springframework.util.StringUtils.capitalize;
+
 public class AppAgent extends AgentLifeCycleAdapter implements AgentBuildRunner
 {
     private static final Logger LOG = Logger.getLogger(AgentLifeCycleAdapter.class);
     private static final int MAX_MESSAGE_CACHE_TIME_MS = 24 * 60 * 60 * 1000;
+    private static final String BURP_SCAN_STATUS = "BURP_SCAN_STATUS: ";
 
     private Map<Long, LogLines> relevantBuildMessages = new HashMap<>();
 
@@ -113,12 +117,18 @@ public class AppAgent extends AgentLifeCycleAdapter implements AgentBuildRunner
             }
 
             Consumer<String> scanningProgress = m -> {
-                logger.progressMessage(m);
-                logger.progressMessage("Scanning...");
+                if (m.startsWith(BURP_SCAN_STATUS))
+                {
+                    logger.progressMessage(capitalize(m.substring(BURP_SCAN_STATUS.length())));
+                }
+                else
+                {
+                    logger.message(m);
+                }
             };
 
             return new BuildProcess() {
-                private volatile Set<Long> issues;
+                private volatile ScanResult scanResult;
                 private volatile Thread thread;
 
                 @Override
@@ -143,26 +153,30 @@ public class AppAgent extends AgentLifeCycleAdapter implements AgentBuildRunner
                                 logger.progressMessage("Scanning URL: " + url);
                             }
 
-                            issues = new BurpCiDriver(
+                            String selfSignedCertX509 = config.get(BurpScanConstants.BURP_SCAN_PROPERTY_SELF_SIGNED_CERT_X509);
+
+                            scanResult = new BurpCiDriver(
                                     config.get(BurpScanConstants.BURP_SCAN_PROPERTY_API_URL),
                                     config.get(BurpScanConstants.BURP_SCAN_PROPERTY_SCAN_DEFINITION),
                                     urls,
                                     config.get(BurpScanConstants.BURP_SCAN_PROPERTY_SEVERITY_THRESHOLD),
                                     config.get(BurpScanConstants.BURP_SCAN_PROPERTY_CONFIDENCE_THRESHOLD),
+                                    config.get(BurpScanConstants.BURP_SCAN_PROPERTY_TIMEOUT),
                                     burpCiSourceConsumer.getIgnores(),
                                     null,
                                     null,
                                     "true".equals(config.get(BurpScanConstants.BURP_SCAN_PROPERTY_OUTPUT_JSON_ISSUES))
                                             ? scanningProgress
-                                            : null
+                                            : null,
+                                    selfSignedCertX509 == null || selfSignedCertX509.isEmpty() ? null : selfSignedCertX509 // TODO: in 1.0.7 nullOrEmpty is done in the driver
                             )
                                     .scan(scanningProgress);
 
                             logger.progressMessage("Finished Burp scan");
 
-                            if (!issues.isEmpty())
+                            if (!scanResult.success)
                             {
-                                logger.progressMessage(String.format("Found %d unexpected issue%s", issues.size(), issues.size() == 1 ? "" : "s"));
+                                logger.progressMessage(String.format("Found %d unexpected issue%s", scanResult.issueIds.size(), scanResult.issueIds.size() == 1 ? "" : "s"));
                             }
                         } catch (Exception e)
                         {
@@ -197,7 +211,7 @@ public class AppAgent extends AgentLifeCycleAdapter implements AgentBuildRunner
                     try {
                         thread.join();
 
-                        return issues == null || !issues.isEmpty()
+                        return scanResult == null || !scanResult.success
                                 ? BuildFinishedStatus.FINISHED_FAILED
                                 : BuildFinishedStatus.FINISHED_SUCCESS;
                     } catch (InterruptedException e)

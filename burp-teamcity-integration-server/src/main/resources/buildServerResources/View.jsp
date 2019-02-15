@@ -19,7 +19,15 @@
 </div>
 
 <div class="parameter">
+  Length of time in seconds to wait before giving up: <strong><props:displayValue name="${constants.timeout}" emptyValue="${constants.timeoutEmpty}"/></strong>
+</div>
+
+<div class="parameter">
   Output issues in JSON form (verbose): <strong><props:displayValue name="${constants.outputJsonIssues}" emptyValue="${constants.outputJsonIssuesEmpty}"/></strong>
+</div>
+
+<div class="parameter">
+  Self-signed TLS certificate, public part (optional, in X509 base64-encoded format, often a .pem file): <strong><pre><props:displayValue name="${constants.selfSignedCertX509}" emptyValue="${constants.selfSignedCertX509Empty}"/></pre></strong>
 </div>
 
 <i>Note that the dynamic input for this plugin is the content of the previous step's build output, specifically lines of the form "BURP_SCAN_URL = <URL to scan>"</i>
